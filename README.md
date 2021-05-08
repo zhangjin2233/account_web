@@ -1,5 +1,7 @@
 # react-admin([尝试一下在线编辑](https://codesandbox.io/s/react-admin-u9kdb))
 
+使用https://github.com/yezihaohao这位老兄的项目作为基础
+
 react-admin system solution
 
 <img src="https://raw.githubusercontent.com/yezihaohao/react-admin/master/screenshots/logo.png" alt="logo" width="150" height="53" />
