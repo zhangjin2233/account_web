@@ -1,6 +1,6 @@
 # react-admin([尝试一下在线编辑](https://codesandbox.io/s/react-admin-u9kdb))
 
-使用https://github.com/yezihaohao 这位老兄的项目作为基础
+使用https://github.com/yezihaohao 这位老兄的项目作为基础！！
 
 react-admin system solution
 
