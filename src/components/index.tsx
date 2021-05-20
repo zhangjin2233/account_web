@@ -10,6 +10,8 @@ import AsynchronousTable from './tables/AsynchronousTable';
 import Echarts from './charts/Echarts';
 import Recharts from './charts/Recharts';
 import Icons from './ui/Icons';
+import AddTransaction from './transaction/AddTransaction';
+import Total from './transaction/Total';
 import Buttons from './ui/Buttons';
 import Spins from './ui/Spins';
 import Modals from './ui/Modals';
@@ -45,6 +47,8 @@ export default {
     Echarts,
     Recharts,
     Icons,
+    AddTransaction,
+    Total,
     Buttons,
     Spins,
     Modals,

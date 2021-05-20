@@ -1,168 +1,102 @@
 /**
  * Created by hao.cheng on 2017/4/23.
  */
- import React from 'react';
- import { Row, Col, Card, Button, Radio, Menu, Dropdown } from 'antd';
- import BreadcrumbCustom from '../widget/BreadcrumbCustom';
- import { RadioChangeEvent } from 'antd/lib/radio';
- import { ButtonSize } from 'antd/lib/button';
- import { DownOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
- 
- type ButtonsState = {
-     size: ButtonSize;
-     loading: boolean;
-     iconLoading: boolean;
- };
- class Total extends React.Component<any, ButtonsState> {
-     constructor(props: any) {
-         super(props);
-         this.state = {
-             size: 'middle',
-             loading: false,
-             iconLoading: false,
-         };
-     }
- 
-     handleSizeChange = (e: RadioChangeEvent) => {
-         this.setState({ size: e.target.value });
-     };
-     handleMenuClick = (e: any) => {
-         console.log('click', e);
-     };
-     enterLoading = () => {
-         this.setState({ loading: true });
-     };
-     enterIconLoading = () => {
-         this.setState({ iconLoading: true });
-     };
-     render() {
-         const size = this.state.size;
-         const menu = (
-             <Menu onClick={this.handleMenuClick}>
-                 <Menu.Item key="1">1st item</Menu.Item>
-                 <Menu.Item key="2">2nd item</Menu.Item>
-                 <Menu.Item key="3">3rd item</Menu.Item>
-             </Menu>
-         );
-         return (
-             <div className="gutter-example button-demo">
-                 <BreadcrumbCustom breads={['UI', '按钮']} />
-                 <Row gutter={16}>
-                     <Col className="gutter-row" md={12}>
-                         <div className="gutter-box">
-                             <Card bordered={false}>
-                                 <Button type="primary">Primary</Button>
-                                 <Button>Default</Button>
-                                 <Button type="dashed">Dashed</Button>
-                                 <Button danger>Danger</Button>
-                             </Card>
-                         </div>
-                     </Col>
-                     <Col className="gutter-row" md={12}>
-                         <div className="gutter-box">
-                             <Card bordered={false}>
-                                 <Button type="primary" shape="circle" icon="search" />
-                                 <Button type="primary" icon="search">
-                                     Search
-                                 </Button>
-                                 <Button shape="circle" icon="search" />
-                                 <Button icon="search">Search</Button>
-                                 <br />
-                                 <Button shape="circle" icon="search" />
-                                 <Button icon="search">Search</Button>
-                                 <Button type="dashed" shape="circle" icon="search" />
-                                 <Button type="dashed" icon="search">
-                                     Search
-                                 </Button>
-                             </Card>
-                         </div>
-                     </Col>
-                     <Col className="gutter-row" md={12}>
-                         <div className="gutter-box">
-                             <Card bordered={false}>
-                                 <Radio.Group value={size} onChange={this.handleSizeChange}>
-                                     <Radio.Button value="large">Large</Radio.Button>
-                                     <Radio.Button value="middle">Middle</Radio.Button>
-                                     <Radio.Button value="small">Small</Radio.Button>
-                                 </Radio.Group>
-                                 <br />
-                                 <br />
-                                 <Button type="primary" shape="circle" icon="download" size={size} />
-                                 <Button type="primary" icon="download" size={size}>
-                                     Download
-                                 </Button>
-                                 <Button type="primary" size={size}>
-                                     Normal
-                                 </Button>
-                                 <br />
-                                 <Button.Group size={size}>
-                                     <Button type="primary">
-                                         <LeftOutlined />
-                                         Backward
-                                     </Button>
-                                     <Button type="primary">
-                                         Forward
-                                         <RightOutlined />
-                                     </Button>
-                                 </Button.Group>
-                             </Card>
-                         </div>
-                     </Col>
-                     <Col className="gutter-row" md={12}>
-                         <div className="gutter-box">
-                             <Card bordered={false}>
-                                 <Button type="primary">primary</Button>
-                                 <Button>secondary</Button>
-                                 <Dropdown overlay={menu}>
-                                     <Button>
-                                         more <DownOutlined />
-                                     </Button>
-                                 </Dropdown>
-                             </Card>
-                         </div>
-                     </Col>
-                     <Col className="gutter-row" md={12}>
-                         <div className="gutter-box">
-                             <Card bordered={false}>
-                                 <Button type="primary" loading>
-                                     Loading
-                                 </Button>
-                                 <Button type="primary" size="small" loading>
-                                     Loading
-                                 </Button>
-                                 <br />
-                                 <Button
-                                     type="primary"
-                                     loading={this.state.loading}
-                                     onClick={this.enterLoading}
-                                 >
-                                     Click me!
-                                 </Button>
-                                 <Button
-                                     type="primary"
-                                     icon="poweroff"
-                                     loading={this.state.iconLoading}
-                                     onClick={this.enterIconLoading}
-                                 >
-                                     Click me!
-                                 </Button>
-                                 <br />
-                                 <Button shape="circle" loading />
-                                 <Button type="primary" shape="circle" loading />
-                             </Card>
-                         </div>
-                     </Col>
-                 </Row>
-                 <style>{`
-                     .button-demo .ant-btn {
-                         margin-right: 8px;
-                         margin-bottom: 12px;
-                     }
-                 `}</style>
-             </div>
-         );
-     }
- }
- 
- export default Total;
- 
+import React, { useState } from 'react';
+import { Form, Input, Button, Radio, Select, Cascader, DatePicker, TimePicker, InputNumber, Avatar, Space, List } from 'antd';
+import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
+
+import BreadcrumbCustom from '../widget/BreadcrumbCustom';
+import { RadioChangeEvent } from 'antd/lib/radio';
+import axios from 'axios';
+
+type SizeType = Parameters<typeof Form>[0]['size'];
+
+
+class Total extends React.Component<any, SizeType> {
+    constructor(props: any) {
+        super(props);
+        // this.state = {
+        //     size: 'middle',
+        //     loading: false,
+        //     iconLoading: false,
+        // };
+    }
+
+
+    enterLoading = () => {
+        this.setState({ loading: true });
+    };
+    enterIconLoading = () => {
+        this.setState({ iconLoading: true });
+    };
+
+
+    render() {
+
+        const listData = [];
+        for (let i = 0; i < 23; i++) {
+            listData.push({
+                href: 'https://ant.design',
+                title: `ant design part ${i}`,
+                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                description:
+                    'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+                content:
+                    'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+            });
+        }
+
+        return (
+            <div>
+                <List itemLayout="vertical"
+                    size="large"
+                    pagination={{
+                        onChange: page => {
+                            console.log(page);
+                        },
+                        pageSize: 3,
+                    }}
+                    dataSource={listData}
+                    footer={
+                        <div>
+                            <b>ant design</b> footer part
+                        </div>
+                    }
+                    renderItem={item => (
+                        <List.Item
+                          key={item.title}
+                          actions={[
+                            <Space key="list-vertical-star-o">
+                            {React.createElement(StarOutlined)}
+                            {156}
+                          </Space>,
+                            // <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+                            // <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+                            // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                          ]}
+                          extra={
+                            <img
+                              width={272}
+                              alt="logo"
+                              src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                            />
+                          }
+                        >
+                          <List.Item.Meta
+                            avatar={<Avatar src={item.avatar} />}
+                            title={<a href={item.href}>{item.title}</a>}
+                            description={item.description}
+                          />
+                          {item.content}
+                        </List.Item>
+                      )}
+                    >
+                        <List.Item>asdasd</List.Item>
+                </List>
+
+            </div>
+        )
+    }
+}
+
+export default Total;
